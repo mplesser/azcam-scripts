@@ -1,7 +1,9 @@
 import datetime
 import sys
 
-from show_sequence_keywords import show_sequence_keywords
+import azcam
+
+from .show_sequence_keywords import show_sequence_keywords
 
 # val1=abs((val1-datetime.datetime(1970,1,1)).total_seconds())
 
