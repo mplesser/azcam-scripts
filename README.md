@@ -10,11 +10,13 @@ Or download from github: https://github.com/mplesser/azcam-scripts.git.
 
 ## Operation
 
-The code below is for example only.  Usually the scripts are execuited in an *azcam* IPython window which defines the `Run` command.
+The code below is for example only. The scripts are intended to be executed in an *azcam* IPython window.
 
-Use `from azcam_scripts import xxx` to import function `xxx` into the current namespace.  Even more useful would be to issue `from azcam_scripts import *` to bring all the commands directly to the command line namespace.
+Use `from azcam_scripts import xxx` to import module `xxx`. Scripts may then be executed by name as `xxx.xxx()`, for example, `get_temps.get_temps()`. A shortcut would by like `from azcam_scripts.get_temps import get_temps` and then execute with `get_temp()`.
 
-Scripts may then be executed by name as `get_temps()`.
+In some cases it may be useful to bring all the script functions directly to the command line namespace. In this case, use
+`from azcam_scripts.all_scripts import *`.
+
 
 ## Code
 
