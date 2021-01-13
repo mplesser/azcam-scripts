@@ -1,3 +1,7 @@
+"""
+Bring all azcam_scripts into namepace (__all__).
+"""
+
 import os
 import sys
 import importlib
@@ -24,5 +28,6 @@ for pfile in pyfiles:
         func = getattr(mod, pfile)
         globals()[pfile] = func
         __all__.append(pfile)
+
     except Exception:
         azcam.AzcamWarning(f"Could not import script {pfile}")

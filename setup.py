@@ -14,5 +14,5 @@ setup(
     keywords="python parameters",
     packages=find_packages(),
     zip_safe=False,
-    install_requires=["azcam"],
+    install_requires=["azcam", "scipy", "astropy", "matplotlib", "numpy", "requests"],
 )

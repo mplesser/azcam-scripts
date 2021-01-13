@@ -12,6 +12,7 @@ def correct_readnoise():
     """
     Correct measured noise for camera system noise.
     measured_noise and gain are lists.
+    Returns the list sensor_noise.
     """
 
     system_noise = 2.2  # camera system noise in DN
@@ -25,10 +26,7 @@ def correct_readnoise():
         # mg = measured_gain[chan]
         sn = math.sqrt(mn ** 2 - system_noise ** 2)
 
-        print(
-            "Chan: %2d\tGain: %3.12f\tNoise_(DN): %4.1f\tNoise_(e): %4.1f"
-            % (chan, mn, sn)
-        )
+        print("Chan: %2d\tGain: %3.12f\tNoise_(DN): %4.1f\tNoise_(e): %4.1f" % (chan, mn, sn))
 
         sensor_noise.append(sn)
 

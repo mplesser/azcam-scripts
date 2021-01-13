@@ -7,7 +7,7 @@ import azcam
 
 def load_scripts():
     """
-    Load all azcam_scripts.
+    Load all azcam_scripts into azcam.db.cli_cmds
     """
 
     folder = os.path.dirname(__file__)
@@ -21,14 +21,13 @@ def load_scripts():
             pyfiles.append(files[:-3])
     pyfiles.remove("__init__")
     pyfiles.remove("load_scripts")
+    pyfiles.remove("all_scripts")
 
-    __all__ = []
     for pfile in pyfiles:
         try:
             mod = importlib.import_module(f"azcam_scripts.{pfile}")
             func = getattr(mod, pfile)
-            globals()[pfile] = func
-            __all__.append(pfile)
+            azcam.db.cli_cmds[pfile] = func
         except Exception:
             azcam.AzcamWarning(f"Could not import script {pfile}")
 
