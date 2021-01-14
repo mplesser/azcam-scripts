@@ -1,4 +1,7 @@
-# from Ian
+"""
+check_bits.py
+Adapted from code by Ian McGreer. 
+"""
 
 import sys
 
@@ -8,23 +11,30 @@ from astropy.io import fits as fits_io
 import azcam
 
 
-def check_bits(filename):
+def check_bits(filename: str) -> None:
+    """
+    Prints the fraction of pixels in an image with each bit set.
+    Value should be 0.5 except for high order bits.
+
+    Args:
+        filename: image filename
+    """
+
     filename = azcam.utils.make_image_filename(filename)
     fits = fits_io.open(filename)
     print("%5s  " % "", end="")
-    for bit in range(8):
-        print(" bit%d " % bit, end="")
+    for bit in range(16):
+        print(f"bit{bit:02} ", end="")
     print("")
     for ext, hdu in enumerate(fits[1:], start=1):
-        print("HDU%2d  " % ext, end="")
-        data = hdu.data.astype(np.int32)
+        print(f"HDU{ext:02}  ", end="")
+        data = hdu.data.astype(np.int16)
         npix = float(data.size)
-        for bit in range(8):
+        for bit in range(16):
             nbit = np.sum((data & (1 << bit)) > 0)
             fbit = nbit / npix
-            print("%5.3f " % fbit, end="")
+            print(f"{fbit:5.3f} ", end="")
         print("")
-    print("")
 
 
 if __name__ == "__main__":
