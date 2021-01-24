@@ -82,7 +82,9 @@ def centroids(filename: str = ".", threshold: float = 500.0) -> None:
         return y - gaussian(p, x)
 
     # find objects and get centroids - floats
-    labels, numevents = scipy.ndimage.label(data > threshold, [[0, 1, 0], [1, 1, 1], [0, 1, 0]])
+    labels, numevents = scipy.ndimage.label(
+        data > threshold, [[0, 1, 0], [1, 1, 1], [0, 1, 0]]
+    )
     coords = scipy.ndimage.center_of_mass(data, labels, list(range(1, numevents + 1)))
     x = numpy.array(coords)[:, 1]  # cols
     y = numpy.array(coords)[:, 0]  # rows
@@ -162,8 +164,12 @@ def centroids(filename: str = ".", threshold: float = 500.0) -> None:
 
         # for irow in range(-boxsize,boxsize+1):
         for irow in range(0, 1):  # 0
-            dataslice = data[row + irow, col - boxsize : col + boxsize]  # 1D strip along a row
-            indices = list(range(0, boxsize * 2))  # make an array of y values, same length as x
+            dataslice = data[
+                row + irow, col - boxsize : col + boxsize
+            ]  # 1D strip along a row
+            indices = list(
+                range(0, boxsize * 2)
+            )  # make an array of y values, same length as x
             if 0:
                 azcam.plot.plt.plot(indices, dataslice)
                 azcam.plot.plt.show()
@@ -173,7 +179,9 @@ def centroids(filename: str = ".", threshold: float = 500.0) -> None:
             # yfit = mlab.normpdf(dataslice,mean1,sigma1)*dataslice.max()   # normalized probability
 
             p0 = [1.0, 1.0, 1.0, 1.0]
-            coeffs, success = scipy.optimize.leastsq(errfunc, p0, args=(indices, dataslice))
+            coeffs, success = scipy.optimize.leastsq(
+                errfunc, p0, args=(indices, dataslice)
+            )
             fitmean = coeffs[2]
             fitfwhm = coeffs[1]
 
@@ -193,7 +201,9 @@ def centroids(filename: str = ".", threshold: float = 500.0) -> None:
                 coeffs = numpy.polyfit(indices, dataslice, 3)
                 yfit = numpy.polyval(coeffs, indices)
                 azcam.plot.plt.plot(indices, yfit, "r--", linewidth=2)
-                azcam.plot.plt.errorbar(indices, slice, yerr=numpy.sqrt(slice), fmt="ro")
+                azcam.plot.plt.errorbar(
+                    indices, slice, yerr=numpy.sqrt(slice), fmt="ro"
+                )
                 azcam.plot.update()
 
     FWHM_mean = sum(FWHM_array) / len(FWHM_array)
