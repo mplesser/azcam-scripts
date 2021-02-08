@@ -54,8 +54,6 @@ def plot_images(folder="."):
             )
             images[filename].assemble(1)
             # m = images[filename].buffer.mean()
-            images[filename].scale_type = "sdev"
-            # images[filename].scale_factor = m / 5.0
             implot = azcam.plot.plt.imshow(images[filename].buffer)
             implot.set_cmap("gray")
             azcam.plot.update()
