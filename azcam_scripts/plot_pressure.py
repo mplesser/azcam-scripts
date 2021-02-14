@@ -35,7 +35,7 @@ def plot_pressure(delay=1.0):
         secs1 = float(secslist[0]) * 3600 + float(secslist[1]) * 60 + float(secslist[2])
         times.append(secs1)
 
-        p = azcam.api.instrument.get_pressures()[0]
+        p = azcam.db.instrument.get_pressures()[0]
         pressures.append(p)
 
         print("%.0f\t\t%.2e" % (secs1, p))

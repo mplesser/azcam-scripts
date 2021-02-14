@@ -11,8 +11,8 @@ def test_gain_stability(cycles=5):
 
     for i in range(cycles):
         print(f"Testing cycle: {i + 1}/{cycles}")
-        # azcam.api.exposure.set_roi(-1, -1, 1, 500, 1, 1)
-        azcam.api.gain.find()
+        # azcam.db.exposure.set_roi(-1, -1, 1, 500, 1, 1)
+        azcam.db.gain.find()
 
     return
 

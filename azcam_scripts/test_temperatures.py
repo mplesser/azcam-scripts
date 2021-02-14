@@ -13,12 +13,12 @@ def test_temperatures(number_cycles: int = 10):
     """
 
     number_cycles = int(number_cycles)
-    control_temp = azcam.api.tempcon.get_control_temperature()
+    control_temp = azcam.db.tempcon.get_control_temperature()
     print(f"Control temperature is {control_temp:.03f}")
 
     for loop in range(number_cycles):
 
-        temps = azcam.api.tempcon.get_temperatures()
+        temps = azcam.db.tempcon.get_temperatures()
 
         tempstring = repr(temps)
 

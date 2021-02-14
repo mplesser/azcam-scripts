@@ -19,19 +19,19 @@ def test_instrument(loops=2):
 
     for i in range(loops):
         print("Reading header")
-        reply = azcam.api.instrument.read_header()
+        reply = azcam.db.instrument.read_header()
         for x in reply:
             print(f"--> {x}")
 
         print("Reading wavelength")
-        reply = azcam.api.instrument.get_wavelength()
+        reply = azcam.db.instrument.get_wavelength()
         print(f"--> {reply:.3f}")
 
         print("Cycling shutter")
-        reply = azcam.api.instrument.set_shutter(1)
+        reply = azcam.db.instrument.set_shutter(1)
         print("--> Opened")
         time.sleep(1)
-        reply = azcam.api.instrument.set_shutter(0)
+        reply = azcam.db.instrument.set_shutter(0)
         print("--> Closed")
 
     print("Finished testing")

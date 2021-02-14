@@ -25,8 +25,8 @@ def display_files():
             f = os.path.join(root, filename)
             print(f)
 
-            azcam.api.display.display(f)
-            azcam.api.display.zoom(0)
+            azcam.db.display.display(f)
+            azcam.db.display.zoom(0)
 
             print("Press Enter to continue, s to snap, q to quit")
             key = azcam.utils.check_keyboard(1)
@@ -36,7 +36,7 @@ def display_files():
                 break
 
             elif key == "s":
-                azcam.api.display.save_image()
+                azcam.db.display.save_image()
 
     return
 

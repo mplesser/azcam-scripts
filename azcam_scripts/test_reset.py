@@ -9,7 +9,7 @@ import azcam
 
 def test_reset(Cycles=10):
 
-    Cycles = azcam.api.config.get_script_par(
+    Cycles = azcam.db.config.get_script_par(
         "test_reset", "Cycles", "prompt", "Enter number of reset cycles", Cycles
     )
     Cycles = int(Cycles)
@@ -20,7 +20,7 @@ def test_reset(Cycles=10):
     print("Resetting controller...")
     for i in range(Cycles):
         print("Cycle %d of %d" % (i + 1, Cycles))
-        azcam.api.exposure.reset()
+        azcam.db.exposure.reset()
 
     return
 

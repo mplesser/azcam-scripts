@@ -8,9 +8,7 @@ import time
 import azcam
 
 
-def test_shutter(
-    number_cyles=5, open_delay=1, close_delay=2, shutter_type="controller"
-):
+def test_shutter(number_cyles=5, open_delay=1, close_delay=2, shutter_type="controller"):
 
     number_cyles = int(number_cyles)
     open_delay = int(open_delay)
@@ -18,16 +16,16 @@ def test_shutter(
 
     for i in range(number_cyles):
         if shutter_type == "controller":
-            azcam.api.controller.set_shutter(1)
+            azcam.db.controller.set_shutter(1)
         elif shutter_type == "instrument":
-            azcam.api.instrument.set_shutter(1)
+            azcam.db.instrument.set_shutter(1)
         print("open")
         time.sleep(open_delay)
 
         if shutter_type == "controller":
-            azcam.api.controller.set_shutter(0)
+            azcam.db.controller.set_shutter(0)
         elif shutter_type == "instrument":
-            azcam.api.instrument.set_shutter(0)
+            azcam.db.instrument.set_shutter(0)
         print("closed")
 
         if i < number_cyles - 1:

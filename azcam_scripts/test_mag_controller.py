@@ -12,19 +12,19 @@ def test_mag_controller(cycles=100):
     # loop through boards for communications
     azcam.log("Testing communications...")
     for loop in range(cycles):
-        azcam.api.controller.test_datalink(2, 222, 1)
+        azcam.db.controller.test_datalink(2, 222, 1)
     azcam.log("Communications to controller OK")
 
     # reset
     azcam.log("Testing controller reset...")
     for loop in range(cycles):
-        azcam.api.controller.reset()
+        azcam.db.controller.reset()
         azcam.log(f"Controller reset {loop}/{cycles}")
 
     # reset
     azcam.log("Testing exposures...")
     for loop in range(cycles):
-        azcam.api.exposure.expose()
+        azcam.db.exposure.expose()
         azcam.log(f"Exposure {loop}/{cycles}")
 
     return
