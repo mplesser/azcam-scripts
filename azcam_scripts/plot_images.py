@@ -20,8 +20,8 @@ def plot_images(folder="."):
     print("")
 
     # get gain for scaling - TODO: fix me
-    if not azcam.api.gain.valid:
-        azcam.api.gain.read_datafile("../gain/gain.txt")
+    if not azcam.db.gain.valid:
+        azcam.db.gain.read_datafile("../gain/gain.txt")
 
     # loop through files
     QUIT = 0
@@ -38,8 +38,8 @@ def plot_images(folder="."):
             winsound.Beep(FreqYES, DurYES)
             f = os.path.join(root, filename)
 
-            azcam.api.display.display(f)
-            azcam.api.display.zoom(0)
+            azcam.db.display.display(f)
+            azcam.db.display.zoom(0)
 
             print(f"Filename: {filename}")
             key = azcam.utils.check_keyboard(0)
@@ -49,13 +49,11 @@ def plot_images(folder="."):
 
             images[filename] = Image(f)
             images[filename].set_scaling(
-                azcam.api.gain.system_gain,
-                azcam.api.gain.zero_mean,
+                azcam.db.gain.system_gain,
+                azcam.db.gain.zero_mean,
             )
             images[filename].assemble(1)
             # m = images[filename].buffer.mean()
-            images[filename].scale_type = "sdev"
-            # images[filename].scale_factor = m / 5.0
             implot = azcam.plot.plt.imshow(images[filename].buffer)
             implot.set_cmap("gray")
             azcam.plot.update()

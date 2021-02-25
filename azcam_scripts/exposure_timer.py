@@ -10,12 +10,12 @@ import azcam
 
 def exposure_timer():
 
-    azcam.api.exposure.begin()
-    azcam.api.exposure.integrate()
+    azcam.db.exposure.begin()
+    azcam.db.exposure.integrate()
 
     start = timer()
-    azcam.api.exposure.readout()
-    azcam.api.controller.flush()
+    azcam.db.exposure.readout()
+    azcam.db.controller.flush()
     end = timer()
     print(end - start)
 

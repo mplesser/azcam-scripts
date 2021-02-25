@@ -14,10 +14,10 @@ def plot_header_times(fileroot="itl.", starting_sequence=1, keyword="UT"):
     """
 
     # inputs
-    fileroot = azcam.api.config.get_script_par(
+    fileroot = azcam.db.config.get_script_par(
         "plot_header_times", "fileroot", "prompt", "Enter file root name", fileroot
     )
-    starting_sequence = azcam.api.config.get_script_par(
+    starting_sequence = azcam.db.config.get_script_par(
         "plot_header_times",
         "starting_sequence",
         "prompt",

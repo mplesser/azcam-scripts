@@ -12,7 +12,7 @@ def test_exposures(cycles: int = 10):
     cycles = int(cycles)
     for i in range(cycles):
         print(f"Exposure cycle {(i+1)}/{cycles}")
-        azcam.api.exposure.expose(1, "dark", "test dark")
+        azcam.db.exposure.expose(1, "dark", "test dark")
 
     return
 

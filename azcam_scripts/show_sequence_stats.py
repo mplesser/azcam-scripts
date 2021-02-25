@@ -16,10 +16,10 @@ def show_sequence_stats(file_root="itl.", starting_sequence=1):
     """
 
     # inputs
-    file_root = azcam.api.config.get_script_par(
+    file_root = azcam.db.config.get_script_par(
         "show_sequence_stats", "file_root", "prompt", "Enter file root name", file_root
     )
-    starting_sequence = azcam.api.config.get_script_par(
+    starting_sequence = azcam.db.config.get_script_par(
         "show_sequence_stats",
         "starting_sequence",
         "prompt",
@@ -29,7 +29,7 @@ def show_sequence_stats(file_root="itl.", starting_sequence=1):
     starting_sequence = int(starting_sequence)
     SequenceNumber = starting_sequence
 
-    roi = azcam.api.display.get_rois(-1, "image")[0]  # use only first ROI
+    roi = azcam.db.display.get_rois(-1, "image")[0]  # use only first ROI
 
     means = []
     sigmas = []

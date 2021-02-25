@@ -11,21 +11,21 @@ def scan_wavelengths():
 
     et = 15 * 60.0
 
-    azcam.api.config.set_par("imagetest", 0)
+    azcam.db.config.set_par("imagetest", 0)
 
     for wave in range(800, 1110, 10):
 
         print("")
         print("Moving to wavelength is %.0f" % float(wave))
-        azcam.api.instrument.set_wavelength(wave)
-        print("Current wavelength is %.0f" % azcam.api.instrument.get_wavelength())
+        azcam.db.instrument.set_wavelength(wave)
+        print("Current wavelength is %.0f" % azcam.db.instrument.get_wavelength())
 
         print("Exposing...")
-        azcam.api.exposure.expose(et, "flat", "wavelength scan: %d" % wave)
+        azcam.db.exposure.expose(et, "flat", "wavelength scan: %d" % wave)
         print("Finished")
 
     # reset
-    azcam.api.config.set_par("imagetest", 1)
+    azcam.db.config.set_par("imagetest", 1)
 
     return
 

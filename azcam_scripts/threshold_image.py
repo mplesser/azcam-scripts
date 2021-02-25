@@ -15,7 +15,7 @@ from azcam.image import Image
 
 def threshold_image(filename="test.fits"):
 
-    filename = azcam.api.config.get_script_par(
+    filename = azcam.db.config.get_script_par(
         "threshold_image", "filename", "prompt", "Enter image filename", filename
     )
     if filename == ".":
@@ -90,7 +90,7 @@ def threshold_image(filename="test.fits"):
 
     # write and display new image
     im.write_file("filtered.fits", 6)
-    azcam.api.display.display("filtered")
+    azcam.db.display.display("filtered")
 
     azcam.plot.plt.show()
 
