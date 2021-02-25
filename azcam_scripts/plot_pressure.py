@@ -29,19 +29,21 @@ def plot_pressure(delay=1.0):
     while loop:
 
         timenow = datetime.datetime.now()
+        s = str(timenow)
         secs = timenow - timestart
-        timenow = str(timenow)[:-5]
-        secslist = str(secs).split(":")
-        secs1 = float(secslist[0]) * 3600 + float(secslist[1]) * 60 + float(secslist[2])
+        secs1 = secs.total_seconds()
+        #timenow = str(timenow)[:-5]
+        #secslist = str(secs).split(":")
+        #secs1 = float(secslist[0]) * 3600 + float(secslist[1]) * 60 + float(secslist[2])
         times.append(secs1)
 
         p = azcam.api.instrument.get_pressures()[0]
         pressures.append(p)
 
-        print("%.0f\t\t%.2e" % (secs1, p))
+        print(f"{secs1:.0f}\t\t{p:.2e}\t\t{s}")
 
-        azcam.plot.plt.semilogy(times, pressures, azcam.plot.plotstylelines[0])
-        azcam.plot.plt.plot(times, pressures, azcam.plot.plotstylelines[0])
+        azcam.plot.plt.semilogy(times, pressures, azcam.plot.style_lines[0])
+        azcam.plot.plt.plot(times, pressures, azcam.plot.style_lines[0])
 
         azcam.plot.update()
 
