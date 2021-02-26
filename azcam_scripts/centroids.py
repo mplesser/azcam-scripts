@@ -30,7 +30,7 @@ def centroids(filename: str = ".", threshold: float = 500.0) -> None:
     # inputs
     threshold = float(threshold)
     if filename == ".":
-        filename = azcam.db.config.get_script_par(
+        filename = azcam.db.params.get_script_par(
             "centroids",
             "filename",
             "prompt",
@@ -42,7 +42,7 @@ def centroids(filename: str = ".", threshold: float = 500.0) -> None:
         if reply is None:
             return
         filename = reply[0]
-        azcam.db.config.set_script_par("centroids", "filename", filename)
+        azcam.db.params.set_script_par("centroids", "filename", filename)
 
     filename = azcam.utils.make_image_filename(filename)
 

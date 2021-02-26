@@ -15,7 +15,7 @@ from azcam.image import Image
 
 def threshold_image(filename="test.fits"):
 
-    filename = azcam.db.config.get_script_par(
+    filename = azcam.db.params.get_script_par(
         "threshold_image", "filename", "prompt", "Enter image filename", filename
     )
     if filename == ".":

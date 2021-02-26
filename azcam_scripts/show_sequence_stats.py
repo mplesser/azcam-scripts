@@ -16,10 +16,10 @@ def show_sequence_stats(file_root="itl.", starting_sequence=1):
     """
 
     # inputs
-    file_root = azcam.db.config.get_script_par(
+    file_root = azcam.db.params.get_script_par(
         "show_sequence_stats", "file_root", "prompt", "Enter file root name", file_root
     )
-    starting_sequence = azcam.db.config.get_script_par(
+    starting_sequence = azcam.db.params.get_script_par(
         "show_sequence_stats",
         "starting_sequence",
         "prompt",

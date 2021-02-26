@@ -10,7 +10,9 @@ import azcam
 def test_filters(cycles: int = 2, filter_id: int = 0):
 
     cycles = int(cycles)
-    filters = azcam.db.api.server.rcommand(f"instrument.get_all_filters {filter_id}")
+    server = azcam.get_tools("server")
+
+    filters = server.rcommand(f"instrument.get_all_filters {filter_id}")
     print(f"Checking filters for ID {filter_id}: {filters}")
 
     for filter_name in filters:

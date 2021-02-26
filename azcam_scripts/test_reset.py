@@ -9,7 +9,7 @@ import azcam
 
 def test_reset(Cycles=10):
 
-    Cycles = azcam.db.config.get_script_par(
+    Cycles = azcam.db.params.get_script_par(
         "test_reset", "Cycles", "prompt", "Enter number of reset cycles", Cycles
     )
     Cycles = int(Cycles)
