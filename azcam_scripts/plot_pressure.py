@@ -32,9 +32,9 @@ def plot_pressure(delay=1.0):
         s = str(timenow)
         secs = timenow - timestart
         secs1 = secs.total_seconds()
-        #timenow = str(timenow)[:-5]
-        #secslist = str(secs).split(":")
-        #secs1 = float(secslist[0]) * 3600 + float(secslist[1]) * 60 + float(secslist[2])
+        # timenow = str(timenow)[:-5]
+        # secslist = str(secs).split(":")
+        # secs1 = float(secslist[0]) * 3600 + float(secslist[1]) * 60 + float(secslist[2])
         times.append(secs1)
 
         p = azcam.db.instrument.get_pressures()[0]
