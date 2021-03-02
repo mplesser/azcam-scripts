@@ -12,7 +12,7 @@ def test_filters(cycles: int = 2, filter_id: int = 0):
     cycles = int(cycles)
     server = azcam.get_tools("server")
 
-    filters = server.rcommand(f"instrument.get_all_filters {filter_id}")
+    filters = server.command(f"instrument.get_all_filters {filter_id}")
     print(f"Checking filters for ID {filter_id}: {filters}")
 
     for filter_name in filters:

@@ -19,7 +19,7 @@ def test_controller(cycles=10):
 
     # test board communication
     print("Testing low-level datalink board level communication...")
-    reply = server.rcommand("controller.test_datalink")
+    reply = server.command("controller.test_datalink")
     print("--> Board communication is communication OK")
 
     # reset
