@@ -1,9 +1,3 @@
-"""
-Continuously read detector temperatures until 'q' is pressed.
-Prints date/time, relative seconds, and temperatures in Celsius.
-Optionally plots data.
-"""
-
 import datetime
 import sys
 import time
@@ -11,7 +5,13 @@ import time
 import azcam
 
 
-def get_temps(delay=10.0, logfile="get_temps.log", plottemps=1):
+def get_temperatures(delay=10.0, logfile="get_temps.log", plottemps=1):
+    """
+    Continuously read system temperatures until 'q' is pressed.
+    Prints date/time, relative seconds, and temperatures in Celsius.
+    Optionally plots temperatures vs times in seconds.
+    Returns [temps], [times]
+    """
 
     plot_range = [-200, 30]
 
@@ -39,7 +39,7 @@ def get_temps(delay=10.0, logfile="get_temps.log", plottemps=1):
     plottemps = int(plottemps)
 
     # display header and open log file
-    s = "#Date and Time         Secs   CamTemp  DewTemp  Temp3   Temp4"
+    s = "#Date and Time         Secs   Temperatures"
     print(s)
     if logfile.lower() != "n":
         lfile = open(logfile, "w")
@@ -48,7 +48,6 @@ def get_temps(delay=10.0, logfile="get_temps.log", plottemps=1):
     timestart = datetime.datetime.now()
 
     if plottemps:
-        # setup plot
         fig = azcam.plot.plt.figure()
         fignum = fig.number
         azcam.plot.move_window(fignum)
@@ -60,13 +59,8 @@ def get_temps(delay=10.0, logfile="get_temps.log", plottemps=1):
         sub.set_ylim(plot_range[0], plot_range[1])
         azcam.plot.update()
 
-    # loop
     times = []
-    temps1 = []
-    temps2 = []
-    temps3 = []
-    temps4 = []
-    reply = "OK"
+    temps = []
 
     while 1:
 
@@ -74,34 +68,21 @@ def get_temps(delay=10.0, logfile="get_temps.log", plottemps=1):
         if key == "q":
             break
 
-        # on an error, just keep going
-        temps = azcam.db.tempcon.get_temperatures()
+        curtemps = azcam.db.tempcon.get_temperatures()
+        ntemps = len(curtemps)
 
-        for _ in range(max(0, 4 - len(temps))):
-            temps.append(0.0)
-        for i, temp in enumerate(temps):  # put in a decent plot range
-            temps[i] = max(temp, plot_range[0])
+        temps.append(curtemps)
         timenow = datetime.datetime.now()
         secs = timenow - timestart
         timenow = str(timenow)[:-5]
         secslist = str(secs).split(":")
         secs1 = float(secslist[0]) * 3600 + float(secslist[1]) * 60 + float(secslist[2])
-        t0 = float(temps[0])
-        t1 = float(temps[1])
-        t2 = float(temps[2])
-        t3 = float(temps[3])
-        temps1.append(t0)
-        temps2.append(t1)
-        temps3.append(t2)
-        temps4.append(t3)
         times.append(secs1)
-        s = "%s  %.1f    %-6.1f   %-6.1f   %-6.1f  %-6.1f" % (
+        s = "%s  %.1f    %-6.1f   %-6.1f" % (
             timenow,
             secs1,
-            t0,
-            t1,
-            t2,
-            t3,
+            curtemps[0],
+            curtemps[1],
         )
         print(s)
 
@@ -111,34 +92,23 @@ def get_temps(delay=10.0, logfile="get_temps.log", plottemps=1):
 
         # plot data
         if plottemps:
-            if len(azcam.plot.plt.gca().lines) > 3:
-                del azcam.plot.plt.gca().lines[-4:]  # erase old lines
-            azcam.plot.plt.plot(times, temps1, azcam.plot.style_lines[0])
-            azcam.plot.plt.plot(times, temps2, azcam.plot.style_lines[1])
-            azcam.plot.plt.plot(times, temps3, azcam.plot.style_lines[2])
-            azcam.plot.plt.plot(times, temps4, azcam.plot.style_lines[3])
-            # update in real time
+            for tnum in range(ntemps):
+                azcam.plot.plt.plot(times, [t[tnum] for t in temps], azcam.plot.style_lines[tnum])
             azcam.plot.update()
 
         # delay
         time.sleep(delay)
 
-        if plottemps:
-            azcam.plot.plt.plot(times, temps1, azcam.plot.style_lines[0])
-            azcam.plot.plt.plot(times, temps2, azcam.plot.style_lines[1])
-            # azcam.plot.plt.plot(times,temps3,azcam.plot.style_lines[2])
-            # azcam.plot.plt.plot(times,temps4,azcam.plot.style_lines[3])
-            sub.set_ylim(plot_range[0], plot_range[1])
-
-            azcam.plot.save_figure(fignum, "gettemps.png")
+    if plottemps:
+        azcam.plot.save_figure(fignum, "get_temperatures.png")
 
     # close
     if logfile.lower() != "n":
         lfile.close()
 
-    return
+    return temps, times
 
 
 if __name__ == "__main__":
     args = sys.argv[1:]
-    get_temps(*args)
+    temps, times = get_temperatures(*args)
