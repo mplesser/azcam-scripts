@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name="azcam-scripts",
-    version="21.1.1",
+    version="21.2.0",
     description="azcam extension which adds general purpose scripts",
     long_description=long_description,
     long_description_content_type="text/markdown",
