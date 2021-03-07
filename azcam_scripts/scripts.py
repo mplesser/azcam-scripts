@@ -8,7 +8,7 @@ import azcam
 
 def load(scripts="all") -> None:
     """
-    Load all scripts from folder into azcam.db.cli_objects
+    Load all scripts from folder into azcam.db.cli_tools
     If package is True then folder is an installed package name.
     """
 
@@ -33,7 +33,7 @@ def load(scripts="all") -> None:
         try:
             mod = importlib.import_module(f"{rootpackage}.{pfile}")
             func = getattr(mod, pfile)
-            azcam.db.cli_objects[pfile] = func
+            azcam.db.cli_tools[pfile] = func
         except Exception as e:
             print(e)
             azcam.AzcamWarning(f"Could not import script {pfile}")
